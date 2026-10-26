@@ -1,0 +1,15 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Database
+backend/minni.db
+minni.db
+
+# IDE
+.vscode/
+.idea/
+
+# Environment
+.env
