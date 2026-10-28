@@ -5,7 +5,6 @@ __pycache__/
 
 # Database
 backend/minni.db
-minni.db
 
 # IDE
 .vscode/
