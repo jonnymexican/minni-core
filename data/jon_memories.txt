@@ -1,0 +1,20 @@
+I use Kali Linux as my primary security testing environment.
+
+I enjoy Python because it helps me quickly turn ideas into working software.
+
+I am building Minni to help AI systems remember information over time.
+
+I prefer self-hosted tools whenever possible.
+
+I enjoy working on AI and developer productivity projects.
+
+I use GitHub for source control and collaboration.
+
+I am interested in AI agents and long-term memory systems.
+
+I value simple MVPs over over-engineered solutions.
+
+I enjoy automation and building tools that save time.
+
+I often explore multiple project ideas before choosing one to pursue.wq
+
