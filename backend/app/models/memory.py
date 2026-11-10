@@ -1,6 +1,12 @@
-from sqlalchemy import Column
-from sqlalchemy import Integer
-from sqlalchemy import String
+from datetime import datetime
+
+from sqlalchemy import (
+    Column,
+    Integer,
+    String,
+    Text,
+    DateTime,
+)
 
 from app.db.database import Base
 
@@ -12,14 +18,41 @@ class Memory(Base):
     id = Column(
         Integer,
         primary_key=True,
-        index=True
+        index=True,
     )
 
     user_id = Column(
         String,
-        index=True
+        index=True,
+        nullable=False,
     )
 
     content = Column(
-        String
+        Text,
+        nullable=False,
+    )
+
+    source_type = Column(
+        String,
+        default="text",
+    )
+
+    source_name = Column(
+        String,
+        nullable=True,
+    )
+
+    source_uri = Column(
+        String,
+        nullable=True,
+    )
+
+    category = Column(
+        String,
+        default="general",
+    )
+
+    created_at = Column(
+        DateTime,
+        default=datetime.utcnow,
     )

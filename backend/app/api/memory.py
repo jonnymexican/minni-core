@@ -19,6 +19,7 @@ def get_db():
 
     try:
         yield db
+
     finally:
         db.close()
 
@@ -31,7 +32,11 @@ def remember(
 
     memory = Memory(
         user_id=payload.user_id,
-        content=payload.content
+        content=payload.content,
+        source_type=payload.source_type,
+        source_name=payload.source_name,
+        source_uri=payload.source_uri,
+        category=payload.category,
     )
 
     db.add(memory)
@@ -42,7 +47,7 @@ def remember(
 
     return {
         "status": "stored",
-        "id": memory.id
+        "id": memory.id,
     }
 
 
@@ -70,8 +75,71 @@ def recall(
             results.append(
                 {
                     "id": memory.id,
-                    "content": memory.content
+                    "content": memory.content,
+                    "source_type": memory.source_type,
+                    "category": memory.category,
                 }
             )
 
     return results
+
+
+@router.get("/memory/{memory_id}")
+def get_memory(
+    memory_id: int,
+    db: Session = Depends(get_db)
+):
+
+    memory = (
+        db.query(Memory)
+        .filter(
+            Memory.id == memory_id
+        )
+        .first()
+    )
+
+    if memory is None:
+
+        return {
+            "error": "memory not found"
+        }
+
+    return {
+        "id": memory.id,
+        "user_id": memory.user_id,
+        "content": memory.content,
+        "source_type": memory.source_type,
+        "source_name": memory.source_name,
+        "source_uri": memory.source_uri,
+        "category": memory.category,
+        "created_at": str(memory.created_at),
+    }
+
+
+@router.get("/memories/{user_id}")
+def list_memories(
+    user_id: str,
+    db: Session = Depends(get_db)
+):
+
+    memories = (
+        db.query(Memory)
+        .filter(
+            Memory.user_id == user_id
+        )
+        .all()
+    )
+
+    return [
+        {
+            "id": memory.id,
+            "content": memory.content,
+            "source_type": memory.source_type,
+            "source_name": memory.source_name,
+            "category": memory.category,
+            "created_at": str(
+                memory.created_at
+            ),
+        }
+        for memory in memories
+    ]
